@@ -1,137 +1,166 @@
 import discord 
 from discord.ext import commands
-import random, pyfiglet, time
+import random, pyfiglet, time 
+from cogs.utils.gendata import *
+from discord.ext.commands import BucketType, Cog
+from pyfiglet import Figlet, FigletFont, FontNotFound
 
+	
+def render_text(text, delims=None, *,
+				escape=True, shorten_by=8,
+				page_length=2000):
+	if delims is None:
+		delims = ["\n"]
+	in_text = text
+	if escape:
+		num_mentions = text.count("@here") + text.count("@everyone")
+		shorten_by += num_mentions
+	page_length -= shorten_by
+	while len(in_text) > page_length:
+		closest_delim = max([in_text.rfind(d, 0, page_length)
+							 for d in delims])
+		closest_delim = closest_delim if closest_delim != -1 else page_length
+		to_send = in_text[:closest_delim]
+		yield to_send
+		in_text = in_text[closest_delim:]
+	yield in_text
+
+
+async def render_ascii(
+		ctx, text, language="box", font=None, org_txt=None):
+	if font:
+		ascii_font = f"\n[ Font :: {font} ]"
+	else:
+		ascii_font = ""
+	if org_txt:
+		org_text_box = f"[ Text :: {org_txt} ]"
+	else:
+		org_text_box = ""
+	ret = f"```{language}\n{text}\n-----------------------" \
+		  f"\n[ Rendered by :: {ctx.author} ]" \
+		  f"{ascii_font}\n{org_text_box}```"
+	await ctx.send(ret)
+
+	
+ 
 class Fun(commands.Cog):
-	
-	
 	def __init__(self, bot):
 		self.bot = bot
-
+		self.phase1, self.phase2, self.videoideas = get_phase_1(), get_phase_2(), get_video_ideas()
+	
 	@commands.command()
-	async def phase1_gen(self, ctx, *, num):
-		# print("DEBUG:: PHASE 1 TRIGGERED BOIZ")
-		file = open("cogs/res/phase1.txt", "r")
-		data = file.read().split(" ")
+	async def phase1_gen(self, ctx, *, num = 1):
 		temp_str = ""
-		for i in range(int(num)):
-			temp_str += random.choice(data) + " "
-		file.close()
+		for i in range(min(int(num), 100)):
+			temp_str += random.choice(self.phase1) + " "
 		await ctx.send(temp_str[:2000])
 
 	@commands.command()
-	async def phase2_gen(self, ctx, *, num):
-		# print("DEBUG:: PHASE 2 TRIGGERED BOIZ")
-		file = open("cogs/res/phase2.txt", "r")
-		data = file.read().split(" ")
+	async def phase2_gen(self, ctx, *, num = 1):
 		temp_str = ""
-		for i in range(int(num)):
-			temp_str += random.choice(data) + " "
-		file.close()
+		for i in range(min(int(num), 100)):
+			temp_str += random.choice(self.phase2) + " "
 		await ctx.send(temp_str[:2000])
-
-	@commands.command()
-	async def ascii(self, ctx, *, txt):
-		# print("DEBUG:: ASCII TRIGGERED BOIZ")
-		if len(txt) < 50:
-			await ctx.send(("```" + pyfiglet.figlet_format(txt))[:1996] + "```")
-		else:
-			await ctx.send("Message too long. Please use long_ascii")
-		# print(pyfiglet.figlet_format(txt))
 
 	@commands.command()
 	async def video_idea(self, ctx, *, num = 1):
-		# print("DEBUG:: VIDEO IDEA TRIGGERED BOIZ")
-		file = open("cogs/res/thinktank.txt", "r")
-		data = file.read().split("\n")
-		for i in range(0, min(10, num)):
-			temp_str = random.choice(data)
+		for i in range(min(10, num)):
+			temp_str = random.choice(self.videoideas)
 			await ctx.send(temp_str[:2000])
 			time.sleep(1)
-		file.close()
+			
+			
+	@commands.command(aliases = ["randascii"])
+	@commands.cooldown(5, 5, BucketType.user)
+	async def ascii_1(self, ctx, *, text: commands.clean_content):
+		if len(text) > 30:
+			return await ctx.send(
+				f"**{ctx.author.name},** unfortunately to prevent spam, "
+				f"the limit is **30** characters.\nSo you can only you use this part of the "
+				f"sentence you tried: `{text[:30]}`"
+			)
+		random_font = default.sparklyrandom(stuff=True, things=FigletFont.getFonts())
+		font = Figlet(font=random_font)
+		out = font.renderText(text)
+		for txt in render_text(out, shorten_by=30):
+			async with ctx.channel.typing():
+				await render_ascii(ctx, text=txt, font=random_font, org_txt=text)
 
 	@commands.command()
-	async def long_ascii(self, ctx, *, txt):
+	@commands.cooldown(5, 5, BucketType.user)
+	async def asciifont(self, ctx, text, font):
+		if len(text) > 30:
+			return await ctx.send(
+				f"**{ctx.author.name},** unfortunately to prevent spam, "
+				"the limit is **30** characters.\nSo you can only you use this part of "
+				f"the sentence  {text[:30]}"
+			)
+		try:
+			chosen_font = Figlet(font=font)
+		except FontNotFound:
+			return await ctx.send(
+				f"**{ctx.author}**, \nFont :: **{font}** not found, "
+			)
+		out = chosen_font.renderText(text)
+		for txt in render_text(out, shorten_by=30):
+			async with ctx.channel.typing():
+				await render_ascii(ctx, text=txt, font=font, org_txt=text)
+
+
+	@commands.command(aliases = ["big"])
+	@commands.cooldown(5, 5, BucketType.user)
+	async def bigtext(self, ctx, *, text):
+		if len(text) > 36:
+			return await ctx.send(
+				f"**{ctx.author.name},** unfortunately to prevent spam, "
+				"the limit is **36** characters.\nSo you can only you use this part of "
+				f"the sentence  {text[:36]}"
+			)
+		font = Figlet(font='big')
+		out = font.renderText(text)
+		for txt in render_text(out, shorten_by=30):
+			async with ctx.channel.typing():
+				await render_ascii(ctx, text=txt, language="fix", org_txt=text)
+
+
+	@commands.command(aliases = ["ascii"])
+	@commands.cooldown(5, 5, BucketType.user)
+	async def ascii_2(self, ctx, *, txt = "Specify words please"):
 		txt_ls = txt.split(" ")
 		next_ls = []
 		count = 0
-		while txt_ls:
-			if len(txt_ls) > 6:
-				it = (txt_ls[0], txt_ls[1], txt_ls[2], txt_ls[3], txt_ls[4], txt_ls[5])
-				if len(txt_ls[0] + txt_ls[1] + txt_ls[2] + txt_ls[3] + txt_ls[4] + txt_ls[5]) < 33:
-					next_ls.append(txt_ls[0] + "  " + txt_ls[1] + "  " + txt_ls[2] + "  " + txt_ls[3] + "  " + txt_ls[4] + "  " + txt_ls[5])
-					txt_ls.pop(5)
-					txt_ls.pop(4)
-					txt_ls.pop(3)
-					txt_ls.pop(2)
-					txt_ls.pop(1)
-					txt_ls.pop(0)
-				elif len(txt_ls[0] + txt_ls[1] + txt_ls[2] + txt_ls[3] + txt_ls[4]) < 35:
-					next_ls.append(txt_ls[0] + "  " + txt_ls[1] + "  " + txt_ls[2] + "  " + txt_ls[3] + "  " + txt_ls[4])
-					txt_ls.pop(4)
-					txt_ls.pop(3)
-					txt_ls.pop(2)
-					txt_ls.pop(1)
-					txt_ls.pop(0)
-				elif len(txt_ls[0] + txt_ls[1] + txt_ls[2] + txt_ls[3]) < 37:
-					next_ls.append(txt_ls[0] + "  " + txt_ls[1] + "  " + txt_ls[2] + "  " + txt_ls[3])
-					txt_ls.pop(3)
-					txt_ls.pop(2)
-					txt_ls.pop(1)
-					txt_ls.pop(0)
-				elif len(txt_ls[0] + txt_ls[1] + txt_ls[2]) < 39:
-					next_ls.append(txt_ls[0] + "  " + txt_ls[1] + "  " + txt_ls[2])
-					txt_ls.pop(2)
-					txt_ls.pop(1)
-					txt_ls.pop(0)
-				elif len(it[0] + it[1]) < 41:
-					next_ls.append(it[0] + "  " + it[1])
-					txt_ls.pop(1)
-					txt_ls.pop(0)
-				else:
-					next_ls.append(it[0])
-					txt_ls.pop(0)
-			else:
-				fin_str = ""
-				for item in txt_ls:
-					fin_str += item + " "
-				if len(fin_str) < 40:
-					next_ls.append(fin_str)
-					txt_ls = []
-				elif len(fin_str) < 80:
-					ind = fin_str.find(" ", 20)
-					if ind != -1:
-						ind2 = fin_str.find(" ", ind)
-						if ind2 != -1:
-							next_ls.append(fin_str[:ind])
-							next_ls.append(fin_str[ind:ind2])
-							next_ls.append(fin_str[ind2:])
-							txt_ls = []
-						else:
-							if ind > 30:
-								next_ls.append(fin_str[:ind])
-								next_ls.append(fin_str[ind:])
-							else:
-								for i in txt_ls:
-									next_ls.append(i)
-									txt_ls = []
+		while 1:
+			if txt_ls == []:
+				break
+			count = 0
+			temp_chars = txt_ls[0]
+			while 1:
+				count += 1
+				if count <= len(txt_ls):
+					if count < len(txt_ls) and len(temp_chars + "   " + txt_ls[count]) <= 75:
+						temp_chars += "   " + txt_ls[count]
 					else:
-						for i in txt_ls:
-							next_ls.append(i)
-							txt_ls = []	
-				else:
-					for i in txt_ls:
-						next_ls.append(i)
-					txt_ls = []
-		lenlen_list = []
+						for i in range(count):
+							txt_ls.pop(0)
+						next_ls.append(temp_chars)
+						break
+				else: #brb 
+					txt_ls.pop(0) 
+					next_ls.append(temp_chars)
+					break
 		for item in next_ls:
-			to_send = ("```" + pyfiglet.figlet_format(item))[:1996] + "```"
-			lenlen_list.append(len(to_send))
-			await ctx.send(to_send)
-			time.sleep(0.5)
-		print(lenlen_list)
-		
-		
-		
-def setup(bot):
-    bot.add_cog(fun(bot))
+			try:
+				to_send = ("```" + pyfiglet.figlet_format(item))[:1996] + "```"
+				await ctx.send(to_send)
+			except NotImplementedError:
+				await ctx.send("Ascii module isn't working rn. deal with it please, thanks -devs")
+			time.sleep(0.8)
+			
+	@commands.command()
+	async def nerdtalk(self, ctx, *, cmd = None):
+		try:
+			language = cmd[:cmd.find(" ")].lower()
+			text = cmd[cmd.find(" "):]
+		except:
+			await ctx.send("Command usage: [language] [text]")
+		await ctx.send("WIP. Here's your text:" + text)
