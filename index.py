@@ -12,6 +12,3 @@ async def on_ready():
 bot.add_cog(Fun(bot))
 
 bot.run("")
-
-
-
