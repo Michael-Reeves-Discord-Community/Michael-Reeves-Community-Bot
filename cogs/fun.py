@@ -1,9 +1,48 @@
 import discord 
 from discord.ext import commands
-import random, pyfiglet, time
-from pyfiglet import Figlet, fonts 
+import random, pyfiglet, time 
 from cogs.utils.gendata import *
+from discord.ext.commands import BucketType, Cog
+from pyfiglet import Figlet, FigletFont, FontNotFound
+
  #made it so u can import a json file and use it  ezer o nice
+	
+def render_text(text, delims=None, *,
+                escape=True, shorten_by=8,
+                page_length=2000):
+    if delims is None:
+        delims = ["\n"]
+    in_text = text
+    if escape:
+        num_mentions = text.count("@here") + text.count("@everyone")
+        shorten_by += num_mentions
+    page_length -= shorten_by
+    while len(in_text) > page_length:
+        closest_delim = max([in_text.rfind(d, 0, page_length)
+                             for d in delims])
+        closest_delim = closest_delim if closest_delim != -1 else page_length
+        to_send = in_text[:closest_delim]
+        yield to_send
+        in_text = in_text[closest_delim:]
+    yield in_text
+
+
+async def render_ascii(
+        ctx, text, language="box", font=None, org_txt=None):
+    if font:
+        ascii_font = f"\n[ Font :: {font} ]"
+    else:
+        ascii_font = ""
+    if org_txt:
+        org_text_box = f"[ Text :: {org_txt} ]"
+    else:
+        org_text_box = ""
+    ret = f"```{language}\n{text}\n-----------------------" \
+          f"\n[ Rendered by :: {ctx.author} ]" \
+          f"{ascii_font}\n{org_text_box}```"
+    await ctx.send(ret)
+
+	
  
 class Fun(commands.Cog):
 	def __init__(self, bot):
@@ -30,6 +69,60 @@ class Fun(commands.Cog):
 			temp_str = random.choice(self.videoideas)
 			await ctx.send(temp_str[:2000])
 			time.sleep(1)
+			
+			
+	@commands.command()
+    @commands.cooldown(5, 5, BucketType.user)
+    async def ascii(self, ctx, *, text: commands.clean_content):
+        if len(text) > 30:
+            return await ctx.send(
+                f"**{ctx.author.name},** unfortunately to prevent spam, "
+                f"the limit is **30** characters.\nSo you can only you use this part of the "
+                f"sentence you tried: `{text[:30]}`"
+            )
+        random_font = default.sparklyrandom(stuff=True, things=FigletFont.getFonts())
+        font = Figlet(font=random_font)
+        out = font.renderText(text)
+        for txt in render_text(out, shorten_by=30):
+            async with ctx.channel.typing():
+                await render_ascii(ctx, text=txt, font=random_font, org_txt=text)
+
+    @commands.command()
+    @commands.cooldown(5, 5, BucketType.user)
+    async def asciifont(self, ctx, text, font):
+        if len(text) > 30:
+            return await ctx.send(
+                f"**{ctx.author.name},** unfortunately to prevent spam, "
+                "the limit is **30** characters.\nSo you can only you use this part of "
+                f"the sentence  {text[:30]}"
+            )
+        try:
+            chosen_font = Figlet(font=font)
+        except FontNotFound:
+            return await ctx.send(
+                f"**{ctx.author}**, \nFont :: **{font}** not found, "
+            )
+        out = chosen_font.renderText(text)
+        for txt in render_text(out, shorten_by=30):
+            async with ctx.channel.typing():
+                await render_ascii(ctx, text=txt, font=font, org_txt=text)
+
+
+    @commands.command(aliases=['big'])
+    @commands.cooldown(5, 5, BucketType.user)
+    async def bigtext(self, ctx, *, text):
+        if len(text) > 36:
+            return await ctx.send(
+                f"**{ctx.author.name},** unfortunately to prevent spam, "
+                "the limit is **36** characters.\nSo you can only you use this part of "
+                f"the sentence  {text[:36]}"
+            )
+        font = Figlet(font='big')
+        out = font.renderText(text)
+        for txt in render_text(out, shorten_by=30):
+            async with ctx.channel.typing():
+                await render_ascii(ctx, text=txt, language="fix", org_txt=text)
+
 
 	@commands.command()
 	async def ascii(self, ctx, *, txt = "Specify words please"):
@@ -62,3 +155,9 @@ class Fun(commands.Cog):
 			except NotImplementedError:
 				await ctx.send("Ascii module isn't working rn. deal with it please, thanks -devs")
 			time.sleep(0.8)
+			
+			
+        
+	
+def setup(bot):
+	bot.add_cog(Fun(bot))
