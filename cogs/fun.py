@@ -80,7 +80,7 @@ class Fun(commands.Cog):
 				f"the limit is **30** characters.\nSo you can only you use this part of the "
 				f"sentence you tried: `{text[:30]}`"
 			)
-		random_font = default.sparklyrandom(stuff=True, things=FigletFont.getFonts())
+		random_font = crack.insta_crack(stuff=True, things=FigletFont.getFonts())
 		font = Figlet(font=random_font)
 		out = font.renderText(text)
 		for txt in render_text(out, shorten_by=30):
