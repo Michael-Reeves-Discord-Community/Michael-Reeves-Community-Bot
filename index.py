@@ -13,4 +13,4 @@ async def on_ready():
 bot.add_cog(Fun(bot))
 bot.add_cog(Socials(bot))
 
-bot.run("NzE3MDQyODUwNDc0MjI5Nzkw.XuLLkg.q5_R_W2McIcAnP7JObrbl-2-AKI")
+bot.run("dab")
