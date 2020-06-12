@@ -4,7 +4,7 @@ from discord.ext import commands
 class Socials(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
-		self.tweet = "tweets don't work yet. darn. michael's last tweet was something about turtles hahhahhaa"
+		self.tweet = open("socialmedia/lastest/latesttweet.txt", "r").read()
 	
 	@commands.command()
 	async def twitter(self, ctx):
