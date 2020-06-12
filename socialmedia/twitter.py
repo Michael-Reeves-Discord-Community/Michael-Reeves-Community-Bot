@@ -1,5 +1,6 @@
 import tweepy as tpy #the library that interfaces with the Twitter API
 import os
+import time
 
 
 class TwitterBot():
@@ -28,6 +29,9 @@ class TwitterBot():
 		latest_tweet = open("latest/lattesttweet.txt", "w")
 		latest_tweet.write(tweet)
 		latest_tweet.close()
+
+	def waitInBetween(self, time):
+		time.sleep(time)
 
 if __name__ == "__main__":
 	tweety = TwitterBot("", "", "", "", "michaelreeves")
