@@ -5,7 +5,6 @@ from cogs.utils.gendata import *
 from discord.ext.commands import BucketType, Cog
 from pyfiglet import Figlet, FigletFont, FontNotFound
 
- #made it so u can import a json file and use it  ezer o nice
 	
 def render_text(text, delims=None, *,
 				escape=True, shorten_by=8,
