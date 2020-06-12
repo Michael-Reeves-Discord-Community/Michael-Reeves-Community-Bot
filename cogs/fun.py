@@ -1,43 +1,35 @@
 import discord 
 from discord.ext import commands
 import random, pyfiglet, time
-from pyfiglet import Figlet, FigletFonts, FontNotFound 
-
-
+from pyfiglet import Figlet, fonts 
+from cogs.utils.gendata import *
+ #made it so u can import a json file and use it  ezer o nice
+ 
 class Fun(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
+		self.phase1, self.phase2, self.videoideas = get_phase_1(), get_phase_2(), get_video_ideas()
 	
 	@commands.command()
 	async def phase1_gen(self, ctx, *, num = 1):
-		file = open("cogs/res/phase1.txt", "r")
-		data = file.read().split(" ")
 		temp_str = ""
-		for i in range(int(num)):
-			temp_str += random.choice(data) + " "
-		file.close()
+		for i in range(min(int(num), 100)):
+			temp_str += random.choice(self.phase1) + " "
 		await ctx.send(temp_str[:2000])
 
 	@commands.command()
 	async def phase2_gen(self, ctx, *, num = 1):
-		file = open("cogs/res/phase2.txt", "r")
-		data = file.read().split(" ")
 		temp_str = ""
-		for i in range(int(num)):
-			temp_str += random.choice(data) + " "
-		file.close()
+		for i in range(min(int(num), 100)):
+			temp_str += random.choice(self.phase2) + " "
 		await ctx.send(temp_str[:2000])
 
 	@commands.command()
 	async def video_idea(self, ctx, *, num = 1):
-		# print("DEBUG:: VIDEO IDEA TRIGGERED BOIZ")
-		file = open("cogs/res/thinktank.txt", "r")
-		data = file.read().split("\n")
-		for i in range(0, min(10, num)):
-			temp_str = random.choice(data)
+		for i in range(min(10, num)):
+			temp_str = random.choice(self.videoideas)
 			await ctx.send(temp_str[:2000])
 			time.sleep(1)
-		file.close()
 
 	@commands.command()
 	async def ascii(self, ctx, *, txt = "Specify words please"):
@@ -52,8 +44,8 @@ class Fun(commands.Cog):
 			while 1:
 				count += 1
 				if count <= len(txt_ls):
-					if count < len(txt_ls) and len(temp_chars + " " + txt_ls[count]) <= 75:
-						temp_chars += " " + txt_ls[count]
+					if count < len(txt_ls) and len(temp_chars + "   " + txt_ls[count]) <= 75:
+						temp_chars += "   " + txt_ls[count]
 					else:
 						for i in range(count):
 							txt_ls.pop(0)
@@ -64,6 +56,9 @@ class Fun(commands.Cog):
 					next_ls.append(temp_chars)
 					break
 		for item in next_ls:
-			to_send = ("```" + pyfiglet.figlet_format(item))[:1996] + "```"
-			await ctx.send(to_send)
+			try:
+				to_send = ("```" + pyfiglet.figlet_format(item))[:1996] + "```"
+				await ctx.send(to_send)
+			except NotImplementedError:
+				await ctx.send("Ascii module isn't working rn. deal with it please, thanks -devs")
 			time.sleep(0.8)
