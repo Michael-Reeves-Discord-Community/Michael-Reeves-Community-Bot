@@ -1,2 +1,2 @@
 import discord 
-from discord.ext import discord 
+from discord.ext import commands
