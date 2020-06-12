@@ -3,6 +3,8 @@ from discord.ext import commands
 import random, pyfiglet, time
 
 class Fun(commands.Cog):
+	
+	
 	def __init__(self, bot):
 		self.bot = bot
 
@@ -128,3 +130,8 @@ class Fun(commands.Cog):
 			await ctx.send(to_send)
 			time.sleep(0.5)
 		print(lenlen_list)
+		
+		
+		
+def setup(bot):
+    bot.add_cog(fun(bot))
