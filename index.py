@@ -23,7 +23,7 @@ print("here lmao")
 
 bot.add_cog(Fun(bot))
 
-bot.run("NzE3MDQyODUwNDc0MjI5Nzkw.XuKRYg.WTYLO8jLorgxkYHcNYTT2yigTWA")
+bot.run("funni haha")
 
 
 
