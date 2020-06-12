@@ -4,6 +4,7 @@ import random, pyfiglet, time
 from cogs.utils.gendata import *
 from discord.ext.commands import BucketType, Cog
 from pyfiglet import Figlet, FigletFont, FontNotFound
+from utils import crack
 
 	
 def render_text(text, delims=None, *,
