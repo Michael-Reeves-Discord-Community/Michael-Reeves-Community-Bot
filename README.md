@@ -17,3 +17,7 @@ If you are reading  this section of the readme then you don't have a code role o
 Sure! Just use it for educational purposes and don't be a skiddie(script kiddie). To run it do the following:
 1. ` pip install -r requirements.txt `
 2. ??????????
+
+### Enviroment variables:
+Make a .env file, or use your system's enviroment variables to make:
+* discord_key=<discord api key>
