@@ -1,14 +1,25 @@
 import discord
-from discord.ext import commands 
-import os 
+from discord.ext import commands
+import os
 from cogs.fun import Fun
+from cogs.social_stuff import Socials
+from cogs.memes import Memes
+from dotenv import load_dotenv
+from socialmedia.twitter import TwitterBot
+
+# load environment variables from .env
+load_dotenv()
 
 bot = commands.Bot(command_prefix="nut_")
 
+
 @bot.event
 async def on_ready():
-	print("time 2 nut")
+    print("time 2 nut")
 
 bot.add_cog(Fun(bot))
+bot.add_cog(Socials(bot))
+bot.add_cog(Memes(bot))
 
-bot.run("NzE3MDQyODUwNDc0MQw9w4WgQxX.xZ8_153952483_ph5bfe1f55c3234JO")
+bot.run(os.environ['discord_key'])
+
