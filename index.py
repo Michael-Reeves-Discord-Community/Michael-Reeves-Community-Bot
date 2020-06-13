@@ -11,8 +11,8 @@ bot = commands.Bot(command_prefix="nut_")
 async def on_ready():
 	print("time 2 nut")
 
-for module in (Fun(bot), Socials(bot), Memes(bot)):
-	bot.add_cog(module)
+bot.add_cog(Fun(bot))
+bot.add_cog(Socials(bot))
+bot.add_cog(Memes(bot))
 
-
-bot.run("dab")
+bot.run("qweufygqwefxt6b279g6zb23uyzgfn2i87fy92138gnf92713gfn79g")
