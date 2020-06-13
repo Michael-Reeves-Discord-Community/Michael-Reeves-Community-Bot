@@ -1,0 +1,60 @@
+phase1_gen | Generates phase one phrases
+Usage: [prefix]phase1_gen [number of words (optional, default = 1)]
+Cooldown: 10 seconds
+
+phase2_gen | Generates phase two phrases
+Usage: [prefix]phase2_gen [number of words (optional, default = 1)]
+Cooldown: 10 seconds
+
+video_idea | Generates WONDERFUL video ideas
+Usage: [prefix]video_idea [number of ideas (optional, default = 1, max 10)]
+Cooldown: 10 seconds
+
+nerdtalk | N E R D
+Usage: [prefix]nerdtalk [language] [text]
+Cooldown: 5 seconds
+List of supported languages: c# (alias: cs), java, python (alias: py), r, c++, c
+
+f | To pay respects in the chat
+Usage: [prefix]f
+Cooldown: 7 seconds
+&&&
+ascii | Generates ASCII renders of text with no length cap
+Aliases: ascii_2
+Usage: [prefix]ascii [text]
+Cooldown: 15 seconds
+Extra: If you use too many words the people on the server won't like you
+
+randascii | Generates ASCII renders of text in random font
+Aliases: ascii_1
+Usage: [prefix]randascii [text]
+Cooldown: 5 seconds
+Extra: Has 30 character limit
+
+asciifont | Generates ASCII renders of text in selected font
+Usage: [prefix]asciifont [text, one word] [font]
+Cooldown: 5 seconds
+Extra: Has 30 character limit
+
+bigtext | Generates large ASCII renders of text
+Usage: [prefix]bigtext [text]
+Cooldown: 5 seconds
+Extra: Has 36 character limit
+&&&
+twitter | Gets Michael Reeves's latest tweet
+Aliases: tweet
+Usage: [prefix]twitter
+Cooldown: 10 seconds
+
+youtube | Gets Michael Reeves's latest youtube video
+Aliases: video, ytvid
+Usage: [prefix]youtube
+Cooldown: 10 seconds
+
+meme | Gets a random reddit post
+Aliases: dmeme, memes
+Usage: [prefix]meme [subreddit (default: michaelreeves)]
+Cooldown: 5 seconds
+
+help | When you need help
+Usage: [prefix] help

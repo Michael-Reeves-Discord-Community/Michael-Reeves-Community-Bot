@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 import random, pyfiglet, time
 from cogs.utils.gendata import *
-from discord.ext.commands import BucketType, Cog
 from pyfiglet import Figlet, FigletFont, FontNotFound
 from cogs.utils import crack
 
@@ -46,7 +45,7 @@ class Fun(commands.Cog):
         self.phase1, self.phase2, self.videoideas = get_phase_1(), get_phase_2(), get_video_ideas()
 
     @commands.command()
-    @commands.cooldown(5, 5, BucketType.user)
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def phase1_gen(self, ctx, *, num = 1):
         temp_str = ""
         for i in range(min(int(num), 100)):
@@ -54,7 +53,7 @@ class Fun(commands.Cog):
         await ctx.send(temp_str[:2000])
 
     @commands.command()
-    @commands.cooldown(5, 5, BucketType.user)
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def phase2_gen(self, ctx, *, num = 1):
         temp_str = ""
         for i in range(min(int(num), 100)):
@@ -62,7 +61,7 @@ class Fun(commands.Cog):
         await ctx.send(temp_str[:2000])
 
     @commands.command()
-    @commands.cooldown(5, 5, BucketType.user)
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def video_idea(self, ctx, *, num = 1):
         for i in range(min(10, num)):
             temp_str = random.choice(self.videoideas)
@@ -70,7 +69,7 @@ class Fun(commands.Cog):
             time.sleep(1)
 
     @commands.command(aliases = ["randascii"])
-    @commands.cooldown(5, 5, BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def ascii_1(self, ctx, *, text: commands.clean_content):
         if len(text) > 30:
             return await ctx.send(
@@ -86,7 +85,7 @@ class Fun(commands.Cog):
                 await render_ascii(ctx, text=txt, font=random_font, org_txt=text)
 
     @commands.command()
-    @commands.cooldown(5, 5, BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def asciifont(self, ctx, text, font):
         if len(text) > 30:
             return await ctx.send(
@@ -107,7 +106,7 @@ class Fun(commands.Cog):
 
 
     @commands.command(aliases = ["big"])
-    @commands.cooldown(5, 5, BucketType.user)
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def bigtext(self, ctx, *, text):
         if len(text) > 36:
             return await ctx.send(
@@ -123,7 +122,7 @@ class Fun(commands.Cog):
 
 
     @commands.command(aliases = ["ascii"])
-    @commands.cooldown(5, 5, BucketType.user)
+    @commands.cooldown(1, 15, commands.BucketType.user)
     async def ascii_2(self, ctx, *, txt = "Specify words please"):
         txt_ls = txt.split(" ")
         next_ls = []
@@ -156,6 +155,7 @@ class Fun(commands.Cog):
             time.sleep(0.8)
 
     @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def nerdtalk(self, ctx, *, cmd = None):
         try:
             language = cmd[:cmd.find(" ")].lower()
@@ -177,6 +177,7 @@ class Fun(commands.Cog):
         await ctx.send("```" + language + "\n" + out_str + "\n```")
 
     @commands.command()
+    @commands.cooldown(1, 7, commands.BucketType.user)
     async def f(self, ctx):
         await ctx.send("Somebody has sent a ***___MASSIVE F IN THE CHAT___***.")
         await ctx.send("```" + pyfiglet.figlet_format("f") + "```")
