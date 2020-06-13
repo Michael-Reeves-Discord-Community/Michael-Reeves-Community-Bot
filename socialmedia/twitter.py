@@ -26,7 +26,7 @@ class TwitterBot():
 		try: os.remove("latest/latesttweet.txt")
 		except: pass 
 		
-		latest_tweet = open("latest/lattesttweet.txt", "w")
+		latest_tweet = open("latest/latesttweet.txt", "w")
 		latest_tweet.write(tweet)
 		latest_tweet.close()
 
