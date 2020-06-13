@@ -9,7 +9,6 @@ class Memes(commands.Cog):
 	@commands.command(aliases=['dmeme'])
 	@commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
 	async def discordmeme(self, ctx):
-		""" Pulls a random meme from r/Discordmemes WARNING: Can be offensive"""
 		async with aiohttp.ClientSession() as session:
 			async with session.get('https://api.reddit.com/r/Discordmemes/random') as r:
 				r = await r.json()
