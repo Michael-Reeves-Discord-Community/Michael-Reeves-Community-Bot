@@ -12,3 +12,8 @@ To verify that you are in the Michael Reeves server, you will have to write your
 
 ## Contributing if you dont have any roles on the MR server 
 If you are reading  this section of the readme then you don't have a code role on the MR server because you don't have a filled github profile, OH BOY  i got the  solution for you! there will be a google forum link(comming soon) where you put your discord username and hashtag and a pasta bin with pro-super-nice-cool-hot-sexy python code and we will review it and then you can contribute , if you contribute before you do the google forum stuff then you pr won't be merged
+
+## Want to run the code yourself?
+Sure! Just use it for educational purposes and don't be a skiddie(script kiddie). To run it do the following:
+1. ` pip install -r requirements.txt `
+2. ??????????
