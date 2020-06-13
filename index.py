@@ -4,8 +4,13 @@ import os
 from cogs.fun import Fun
 from cogs.social_stuff import Socials
 from cogs.memes import Memes
+from dotenv import load_dotenv
+
+# load environment variables from .env
+load_dotenv()
 
 bot = commands.Bot(command_prefix="nut_")
+
 
 @bot.event
 async def on_ready():
@@ -15,4 +20,4 @@ bot.add_cog(Fun(bot))
 bot.add_cog(Socials(bot))
 bot.add_cog(Memes(bot))
 
-bot.run("")
+bot.run(os.environ['discord_key'])
