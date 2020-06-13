@@ -13,7 +13,7 @@ def get(file):
 
 
 def insta_crack(*, numbers=False, stuff=False, things=None, first: int = None, second: int = None, ):
-	if stuff is True:
-		return random.choice(things)
-	if numbers is True:
-		return random.randint(first, second)
+    if stuff is True:
+        return random.choice(things)
+    if numbers is True:
+        return random.randint(first, second)
