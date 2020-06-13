@@ -15,4 +15,4 @@ bot.add_cog(Fun(bot))
 bot.add_cog(Socials(bot))
 bot.add_cog(Memes(bot))
 
-bot.run("qweufygqwefxt6b279g6zb23uyzgfn2i87fy92138gnf92713gfn79g")
+bot.run("")
