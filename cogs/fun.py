@@ -46,6 +46,7 @@ class Fun(commands.Cog):
         self.phase1, self.phase2, self.videoideas = get_phase_1(), get_phase_2(), get_video_ideas()
 
     @commands.command()
+    @commands.cooldown(5, 5, BucketType.user)
     async def phase1_gen(self, ctx, *, num = 1):
         temp_str = ""
         for i in range(min(int(num), 100)):
@@ -53,6 +54,7 @@ class Fun(commands.Cog):
         await ctx.send(temp_str[:2000])
 
     @commands.command()
+    @commands.cooldown(5, 5, BucketType.user)
     async def phase2_gen(self, ctx, *, num = 1):
         temp_str = ""
         for i in range(min(int(num), 100)):
@@ -60,12 +62,12 @@ class Fun(commands.Cog):
         await ctx.send(temp_str[:2000])
 
     @commands.command()
+    @commands.cooldown(5, 5, BucketType.user)
     async def video_idea(self, ctx, *, num = 1):
         for i in range(min(10, num)):
             temp_str = random.choice(self.videoideas)
             await ctx.send(temp_str[:2000])
             time.sleep(1)
-
 
     @commands.command(aliases = ["randascii"])
     @commands.cooldown(5, 5, BucketType.user)
@@ -179,4 +181,3 @@ class Fun(commands.Cog):
         await ctx.send("Somebody has sent a ***___MASSIVE F IN THE CHAT___***.")
         await ctx.send("```" + pyfiglet.figlet_format("f") + "```")
         await ctx.send(":regional_indicator_f:")
-
