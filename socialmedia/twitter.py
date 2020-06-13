@@ -4,14 +4,15 @@ import time
 
 
 class TwitterBot():
-    def __init__(self, akey, asecret, apikey, apisecret, targetUser):
+    def __init__(self, akey, asecret, apikey, apisecret):
         self.akey = akey
         self.asecret = asecret
         self.apikey = apikey
         self.apisecret = apisecret
         self.api = self.auth()
-        self.latestTweet = self.getLatestTweet(targetUser)
-        self.saveLatestTweet(self.latestTweet)
+        # self.user = targetUser
+        # self.latestTweet = self.getLatestTweet(targetUser)
+        # self.saveLatestTweet(self.latestTweet)
 
     def auth(self):
         auth = tpy.OAuthHandler(self.apikey, self.apisecret)
