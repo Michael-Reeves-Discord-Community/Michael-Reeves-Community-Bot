@@ -24,3 +24,4 @@ Make a .env file, or use your system's enviroment variables to make:
 
 ### Contributors 
 - Ben (benjaminkyd@gmail.com)
+- Communist Dictator (myassisdead42096@gmail.com)
