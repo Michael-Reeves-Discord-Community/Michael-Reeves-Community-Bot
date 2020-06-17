@@ -9,7 +9,7 @@ class Memes(commands.Cog):
         self.bot = bot
 
     @commands.command(aliases=['dmeme', 'memes'])
-    @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
+    @commands.cooldown(1, 5, type=commands.BucketType.user)
     async def meme(self, ctx, *, sub="michaelreeves"):
         try:
             async with aiohttp.ClientSession() as session:

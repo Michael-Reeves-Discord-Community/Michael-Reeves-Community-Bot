@@ -34,11 +34,13 @@ class Socials(commands.Cog):
         self.ytvid = open("socialmedia/latest/latestytvid.txt", "r").read()
 
     @commands.command(aliases=["tweet"])
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def twitter(self, ctx):
         self.tweet = self.Twitter.getLatestTweet()
         await ctx.send(self.tweet)
 
     @commands.command(aliases=["video", "ytvid"])
+    @commands.cooldown(1, 10, commands.BucketType.user)
     async def youtube(self, ctx):
         print("hi")
         await ctx.send(self.ytvid)
