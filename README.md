@@ -21,3 +21,6 @@ Sure! Just use it for educational purposes and don't be a skiddie(script kiddie)
 ### Enviroment variables:
 Make a .env file, or use your system's enviroment variables to make:
 * discord_key=<discord api key>
+
+### Contributors 
+- Ben (benjaminkyd@gmail.com)

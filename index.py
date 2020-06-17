@@ -12,6 +12,9 @@ load_dotenv()
 
 bot = commands.Bot(command_prefix="nut_")
 
+# ben was here
+#lmao what is this codebase
+# i too code python
 
 @bot.event
 async def on_ready():
