@@ -23,5 +23,5 @@ Make a .env file, or use your system's enviroment variables to make:
 * discord_key=<discord api key>
 
 ### Contributors 
-- Ben (benjaminkyd@gmail.com)
+- [Ben](https://github.com/plane000) (benjaminkyd@gmail.com)
 - Communist Dictator (myassisdead42096@gmail.com)
