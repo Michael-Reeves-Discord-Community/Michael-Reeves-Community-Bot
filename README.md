@@ -24,4 +24,4 @@ Make a .env file, or use your system's enviroment variables to make:
 
 ### Contributors 
 - [Ben](https://github.com/plane000) (benjaminkyd@gmail.com)
-- Communist Dictator (myassisdead42096@gmail.com)
+- [Communist Dictator](https://github.com/clubpenguin420) (myassisdead42096@gmail.com)
