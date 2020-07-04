@@ -166,15 +166,15 @@ class Fun(commands.Cog):
         except:
             await ctx.send("Command usage: [language] [text]")
         if language == "c#" or language == "cs":
-            out_str = "using System;\n\nnamespace csharp\n{\n\tclass Nut\n\t{\n\t\tstatic void Main(string[] args)\n\t\t{\n\t\t\Console.WriteLine(\"" + \
+            out_str = "using System;\n\nnamespace csharp\n{\n\tclass Nut\n\t{\n\t\tstatic void Main(string[] args)\n\t\t{\n\t\t\tConsole.WriteLine(\"" + \
                 text + "\");\n\t\t}\n\t}\n}"
         elif language == "java":
             out_str = "package java.nut;\n\npublic class Nut {\n\tpublic static void main(string[] args) {\n\t\tSystem.out.println(\"" + \
-                text + "\");\n\t\t}\n\t}\n}"
+                text + "\");\n\t}\n}"
         elif language == "python" or language == "py" or language == "r":
             out_str = "print(" + text + ")\n"
         elif language == "c++":
-            out_str = "#include <iostream>\n\nusing namespace nut\n\int main()\n{\n\tcout<<\"" + \
+            out_str = "#include <iostream>\n\nint main()\n{\n\tstd::cout<<\"" + \
                 text + "\";\n\treturn 0;\n}"
         elif language == "c":
             out_str = "#include <stdio.h>\nint main() {\n\tprintf(\"" + \
