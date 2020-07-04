@@ -20,13 +20,13 @@ Usage: [prefix]f
 Cooldown: 7 seconds
 &&&
 ascii | Generates ASCII renders of text with no length cap
-Aliases: ascii_2
+Aliases: ascii_1
 Usage: [prefix]ascii [text]
 Cooldown: 15 seconds
 Extra: If you use too many words the people on the server won't like you
 
 randascii | Generates ASCII renders of text in random font
-Aliases: ascii_1
+Aliases: ascii_2
 Usage: [prefix]randascii [text]
 Cooldown: 5 seconds
 Extra: Has 30 character limit
