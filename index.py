@@ -19,6 +19,15 @@ bot.remove_command("help")
 async def on_ready():
     print("time 2 nut")
 
+@bot.event
+async def on_command_error(ctx, error):
+    if type(error) == discord.ext.commands.errors.CommandNotFound:
+        await ctx.send("that is not a valid command gamer. try [prefix]help for a list")
+    elif type(error) == discord.ext.commands.errors.CommandOnCooldown:
+        await ctx.send(f"you are doing that too fast. you have {error.retry_after} seconds left. precise, huh")
+    else:
+        await ctx.send(error)
+
 bot.add_cog(Fun(bot))
 bot.add_cog(Socials(bot))
 bot.add_cog(Memes(bot))
