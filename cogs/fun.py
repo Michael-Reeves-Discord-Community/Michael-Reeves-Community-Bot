@@ -3,6 +3,10 @@ from discord.ext import commands
 import random
 import pyfiglet
 import time
+import requests
+import json
+import os
+
 from cogs.utils.gendata import *
 from pyfiglet import Figlet, FigletFont, FontNotFound
 from cogs.utils import crack
@@ -189,3 +193,9 @@ class Fun(commands.Cog):
         await ctx.send("Somebody has sent a ***___MASSIVE F IN THE CHAT___***.")
         await ctx.send("```" + pyfiglet.figlet_format("f") + "```")
         await ctx.send(":regional_indicator_f:")
+
+    @commands.command(aliases=["rona", "cases", "covid"])
+    @commands.cooldown(1, 10, commands.BucketType.user)
+    async def corona(self, ctx):
+        await ctx.send("lmao corona cases rn be goin: " + str(requests.request("GET", "https://api.thevirustracker.com/free-api?global=stats", headers={}, data={}).json()["results"][0]["total_cases"]))
+

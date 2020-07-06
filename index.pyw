@@ -18,6 +18,7 @@ bot.remove_command("help")
 @bot.event
 async def on_ready():
     print("time 2 nut")
+    await bot.change_presence(status=discord.Status.online, activity=discord.Streaming(name="a game rn", url="https://www.youtube.com/watch?v=DLzxrzFCyOs"))
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -27,6 +28,7 @@ async def on_command_error(ctx, error):
         await ctx.send(f"you are doing that too fast. you have {error.retry_after} seconds left. precise, huh")
     else:
         await ctx.send(error)
+
 
 bot.add_cog(Fun(bot))
 bot.add_cog(Socials(bot))
