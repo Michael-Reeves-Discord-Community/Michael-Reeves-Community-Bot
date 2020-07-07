@@ -12,9 +12,7 @@ from pyfiglet import Figlet, FigletFont, FontNotFound
 from cogs.utils import crack
 
 
-def render_text(text, delims=None, *,
-                escape=True, shorten_by=8,
-                page_length=2000):
+def render_text(text, delims=None, *, escape=True, shorten_by=8, page_length=2000):
     if delims is None:
         delims = ["\n"]
     in_text = text
@@ -23,8 +21,7 @@ def render_text(text, delims=None, *,
         shorten_by += num_mentions
     page_length -= shorten_by
     while len(in_text) > page_length:
-        closest_delim = max([in_text.rfind(d, 0, page_length)
-                             for d in delims])
+        closest_delim = max([in_text.rfind(d, 0, page_length) for d in delims])
         closest_delim = closest_delim if closest_delim != -1 else page_length
         to_send = in_text[:closest_delim]
         yield to_send
@@ -32,8 +29,7 @@ def render_text(text, delims=None, *,
     yield in_text
 
 
-async def render_ascii(
-        ctx, text, language="", font=None, org_txt=None):
+async def render_ascii(ctx, text, language="", font=None, org_txt=None):
     if font:
         ascii_font = f"\n[ Font :: {font} ]"
     else:
@@ -49,8 +45,7 @@ async def render_ascii(
 class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.phase1, self.phase2, self.videoideas = get_phase_1(
-        ), get_phase_2(), get_video_ideas()
+        self.phase1, self.phase2, self.videoideas = get_phase_1(), get_phase_2(), get_video_ideas()
 
     @commands.command()
     @commands.cooldown(1, 10, commands.BucketType.user)
@@ -135,7 +130,7 @@ class Fun(commands.Cog):
         next_ls = []
         count = 0
         while 1:
-            if txt_ls == []:
+            if not txt_ls:
                 break
             count = 0
             temp_chars = txt_ls[0]
@@ -163,26 +158,26 @@ class Fun(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def nerdtalk(self, ctx, *, cmd=None):
-        try:
-            language = cmd[:cmd.find(" ")].lower()
-            text = cmd[(cmd.find(" ") + 1):]
-        except:
-            await ctx.send("Command usage: [language] [text]")
+    async def nerdtalk(self, ctx, *, cmd="not_language bruh"):
+        language = cmd[:cmd.find(" ")].lower()
+        text = cmd[(cmd.find(" ") + 1):]
+
         if language == "c#" or language == "cs":
             out_str = "using System;\n\nnamespace csharp\n{\n\tclass Nut\n\t{\n\t\tstatic void Main(string[] args)\n\t\t{\n\t\t\tConsole.WriteLine(\"" + \
-                text + "\");\n\t\t}\n\t}\n}"
+                      text + "\");\n\t\t}\n\t}\n}"
         elif language == "java":
             out_str = "package java.nut;\n\npublic class Nut {\n\tpublic static void main(string[] args) {\n\t\tSystem.out.println(\"" + \
-                text + "\");\n\t}\n}"
+                      text + "\");\n\t}\n}"
         elif language == "python" or language == "py" or language == "r":
             out_str = "print(" + text + ")\n"
         elif language == "c++":
             out_str = "#include <iostream>\n\nint main()\n{\n\tstd::cout<<\"" + \
-                text + "\";\n\treturn 0;\n}"
+                      text + "\";\n\treturn 0;\n}"
         elif language == "c":
             out_str = "#include <stdio.h>\nint main() {\n\tprintf(\"" + \
-                text + "\");\n\treturn 0;\n}"
+                      text + "\");\n\treturn 0;\n}"
+        elif language == "not_language":
+            out_str = "usage: [prefix]nerdtalk [language] [message]"
         else:
             out_str = "your hecking language hasn't been implemented yet because the devs are too lazy. here's the text: " + text
         await ctx.send("```" + language + "\n" + out_str + "\n```")
@@ -197,5 +192,5 @@ class Fun(commands.Cog):
     @commands.command(aliases=["rona", "cases", "covid"])
     @commands.cooldown(1, 10, commands.BucketType.user)
     async def corona(self, ctx):
-        await ctx.send("lmao corona cases rn be goin: " + str(requests.request("GET", "https://api.thevirustracker.com/free-api?global=stats", headers={}, data={}).json()["results"][0]["total_cases"]))
-
+        await ctx.send(
+            "lmao corona cases rn be goin: " + str(requests.request("GET", "https://api.thevirustracker.com/free-api?global=stats", headers={}, data={}).json()["results"][0]["total_cases"]))

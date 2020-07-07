@@ -20,6 +20,7 @@ async def on_ready():
     print("time 2 nut")
     await bot.change_presence(status=discord.Status.online, activity=discord.Streaming(name="a game rn", url="https://www.youtube.com/watch?v=DLzxrzFCyOs"))
 
+
 @bot.event
 async def on_command_error(ctx, error):
     if type(error) == discord.ext.commands.errors.CommandNotFound:
@@ -36,4 +37,3 @@ bot.add_cog(Memes(bot))
 bot.add_cog(Misc(bot))
 
 bot.run(os.environ['discord_key'])
-

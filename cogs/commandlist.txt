@@ -40,6 +40,15 @@ bigtext | Generates large ASCII renders of text
 Usage: [prefix]bigtext [text]
 Cooldown: 5 seconds
 Extra: Has 36 character limit
+
+nick | Set own nickname
+Usage: [prefix]nick [nick]
+Cooldown: 30 seconds
+Extra: Requires bot to be above your rank
+
+nick_someone_else | Admin Only: set user nickname
+Usage: [prefix]nick_someone_else [user] [nick]
+Extra: Requires bot to be above target user's rank, and admin rank for command initiator
 &&&
 twitter | Gets Michael Reeves's latest tweet
 Aliases: tweet
@@ -55,6 +64,11 @@ meme | Gets a random reddit post
 Aliases: dmeme, memes
 Usage: [prefix]meme [subreddit (default: michaelreeves)]
 Cooldown: 5 seconds
+
+corona | Gets current corona
+Aliases: rona, cases, covid
+Usage: [prefix]corona
+Cooldown: 10 seconds
 
 help | When you need help
 Usage: [prefix] help
