@@ -44,7 +44,7 @@ Extra: Has 36 character limit
 nick | Set own nickname
 Usage: [prefix]nick [nick]
 Cooldown: 30 seconds
-Extra: Requires bot to be above your rank
+Extra: Requires bot to be above your rank. To reset, use no arguments.
 
 nick_someone_else | Admin Only: set user nickname
 Usage: [prefix]nick_someone_else [user] [nick]

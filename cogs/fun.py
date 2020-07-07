@@ -126,6 +126,7 @@ class Fun(commands.Cog):
     @commands.command(aliases=["ascii_1"])
     @commands.cooldown(1, 15, commands.BucketType.user)
     async def ascii(self, ctx, *, txt="Specify words please"):
+        infostr = f"Text from {ctx.author} Message"
         txt_ls = txt.split(" ")
         next_ls = []
         count = 0
@@ -137,24 +138,21 @@ class Fun(commands.Cog):
             while 1:
                 count += 1
                 if count <= len(txt_ls):
-                    if count < len(txt_ls) and len(temp_chars + "   " + txt_ls[count]) <= 75:
+                    if count < len(txt_ls) and len(temp_chars + "   " + txt_ls[count]) <= 70:
                         temp_chars += "   " + txt_ls[count]
                     else:
                         for i in range(count):
                             txt_ls.pop(0)
                         next_ls.append(temp_chars)
                         break
-                else:  # brb
+                else:
                     txt_ls.pop(0)
                     next_ls.append(temp_chars)
                     break
-        for item in next_ls:
-            try:
-                to_send = ("```" + pyfiglet.figlet_format(item))[:1996] + "```"
-                await ctx.send(to_send)
-            except NotImplementedError:
-                await ctx.send("Ascii module isn't working rn. deal with it please, thanks -devs")
-            time.sleep(0.8)
+        for i in range(0, len(next_ls)):
+            to_send = ("```" + pyfiglet.figlet_format(next_ls[i]))[:1940] + f"\n{infostr} {i + 1} of {len(next_ls)}```"
+            await ctx.send(to_send)
+            time.sleep(1.2)
 
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)

@@ -20,8 +20,11 @@ class Misc(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 30, commands.BucketType.user)
-    async def nick(self, ctx, *, nick):
-        await ctx.author.edit(nick=nick)
+    async def nick(self, ctx, *, nick=None):
+        if nick is not None:
+            await ctx.author.edit(nick=nick)
+        else:
+            await ctx.author.edit(nick=ctx.author.name)
 
     @commands.command()
     @has_permissions(administrator=True)
