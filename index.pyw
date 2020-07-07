@@ -27,6 +27,11 @@ async def on_command_error(ctx, error):
         await ctx.send("that is not a valid command gamer. try [prefix]help for a list")
     elif type(error) == discord.ext.commands.errors.CommandOnCooldown:
         await ctx.send(f"you are doing that too fast. you have {error.retry_after} seconds left. precise, huh")
+    elif type(error) == discord.ext.commands.errors.CommandInvokeError:
+        if type(error.original) == discord.errors.Forbidden:
+            await ctx.send("you do not have permissions for this gamer.")
+        else:
+            await ctx.send(f"some thing wrong. here, deal with it: {error.original}")
     else:
         await ctx.send(error)
 
