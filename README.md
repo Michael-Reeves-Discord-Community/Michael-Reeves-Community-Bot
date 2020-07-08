@@ -24,8 +24,15 @@ Sure! Just use it for educational purposes and don't be a skiddie(script kiddie)
 
 ### Enviroment variables:
 Make a .env file, or use your system's enviroment variables to make:
-* discord_key=<discord api key>
+* discord_key=[discord api key]
+Twitter Keys:
+* tweet_access_key
+* tweet_access_secret
+* tweet_api_key
+* tweet_api_secret
+
 
 ### Contributors 
 - [Ben](https://github.com/plane000) (benjaminkyd@gmail.com)
 - [Communist Dictator](https://github.com/clubpenguin420) (myassisdead42096@gmail.com)
+- [Sheen](https://github.com/PseudonymPatel) (programmingpatel@gmail.com)
