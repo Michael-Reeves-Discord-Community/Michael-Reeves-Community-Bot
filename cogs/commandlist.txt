@@ -20,13 +20,13 @@ Usage: [prefix]f
 Cooldown: 7 seconds
 &&&
 ascii | Generates ASCII renders of text with no length cap
-Aliases: ascii_2
+Aliases: ascii_1
 Usage: [prefix]ascii [text]
 Cooldown: 15 seconds
 Extra: If you use too many words the people on the server won't like you
 
 randascii | Generates ASCII renders of text in random font
-Aliases: ascii_1
+Aliases: ascii_2
 Usage: [prefix]randascii [text]
 Cooldown: 5 seconds
 Extra: Has 30 character limit
@@ -40,6 +40,15 @@ bigtext | Generates large ASCII renders of text
 Usage: [prefix]bigtext [text]
 Cooldown: 5 seconds
 Extra: Has 36 character limit
+
+nick | Set own nickname
+Usage: [prefix]nick [nick]
+Cooldown: 30 seconds
+Extra: Requires bot to be above your rank. To reset, use no arguments.
+
+nick_someone_else | Admin Only: set user nickname
+Usage: [prefix]nick_someone_else [user] [nick]
+Extra: Requires bot to be above target user's rank, and admin rank for command initiator
 &&&
 twitter | Gets Michael Reeves's latest tweet
 Aliases: tweet
@@ -55,6 +64,11 @@ meme | Gets a random reddit post
 Aliases: dmeme, memes
 Usage: [prefix]meme [subreddit (default: michaelreeves)]
 Cooldown: 5 seconds
+
+corona | Gets current corona
+Aliases: rona, cases, covid
+Usage: [prefix]corona
+Cooldown: 10 seconds
 
 help | When you need help
 Usage: [prefix] help
