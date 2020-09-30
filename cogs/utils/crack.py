@@ -9,7 +9,7 @@ def get(file):
     except AttributeError:
         raise AttributeError("unkown argument")
     except FileNotFoundError:
-        raise FileNotFoundError("a json file wasent found dipshit")
+        raise FileNotFoundError("json file just went boom and is now gone dummy")
 
 
 def insta_crack(*, numbers=False, stuff=False, things=None, first: int = None, second: int = None, ):
