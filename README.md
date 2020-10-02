@@ -9,6 +9,7 @@ To contribute to this bot you must:
 - Have experience with Python,
 - Have the Casual Coder or the Code Expert role, 
 - Be a member of the Michael Reeves server.
+- Have experience with discord.py lib
 
 > **NOTE: You cannot contribute to this bot if you are not in the Michael Reeves discord server. This is because of security reasons. If you try to make a pull request, your PR wont be merged**
 
